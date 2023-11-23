@@ -16,5 +16,5 @@ int main() {
     fprintf(file, "%s", input);
     fclose(file);
 
-    return 0; // Return 0 to indicate success
+    return 0;
 }
