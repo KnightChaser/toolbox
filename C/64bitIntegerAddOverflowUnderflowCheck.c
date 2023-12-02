@@ -1,9 +1,15 @@
 // Targeted for Microsoft Visual Studio (Windows) environment.
 // Inline assembly depends on the runtime environment.
 #include <stdio.h>
-#define LONG_LONG_MAX 9223372036854775807LL
+#include <stdbool.h>
+#define LONG_LONG_MAX +9223372036854775807LL
+#define LONG_LONG_MIN -9223372036854775808LL
 
-long long addWithOverflowCheck(long long a, long long b, long long* result, int* overflow) {
+// Add two long long integer OOR(Out-Of-Range; overflow and underflow) check
+long long addTwoLLIntOORCheck(const long long a, 
+                              const long long b, 
+                              long long* result, 
+                              int* overflow, int* underflow) {
 
     *overflow = 0;
 
@@ -19,12 +25,18 @@ long long addWithOverflowCheck(long long a, long long b, long long* result, int*
 
         jo overflow_label                   ; Jump to overflow_label if overflow occurred
         jmp end_label                       ; Jump to end_label(overflow not occurred)
-        
+
         overflow_label:
             mov ecx, overflow
             mov byte ptr[ecx], 1            ; Set overflow bit up
 
         end_label:
+    }
+
+    // When there is a signed numbers at least while the overflow flag is set up, it's underflow actually.
+    if (*overflow == true) {
+        *overflow = false;
+        *underflow = true;
     }
 
     return *result;
@@ -33,12 +45,15 @@ long long addWithOverflowCheck(long long a, long long b, long long* result, int*
 int main(void) {
 
     long long result;
-    int overflow;
+    int overflow = false;
+    int underflow = false;
 
-    result = addWithOverflowCheck(LONG_MAX, 1LL, &result, &overflow);
+    result = addTwoLLIntOORCheck(LONG_LONG_MIN, -1LL, &result, &overflow, &underflow);
 
     if (overflow)
         printf("Overflow occurred!\n");
+    else if (underflow)
+        printf("Underflow occurred!\n");
     else
         printf("Result: %lld\n", result);
 
