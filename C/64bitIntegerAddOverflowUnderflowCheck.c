@@ -34,7 +34,7 @@ long long addTwoLLIntOORCheck(const long long a,
     }
 
     // When there is a signed numbers at least while the overflow flag is set up, it's underflow actually.
-    if (*overflow == true) {
+    if (*overflow == true && (a < 0 || b < 0)) {
         *overflow = false;
         *underflow = true;
     }
