@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <windows.h>
 #include <stdio.h>
 
@@ -17,17 +18,17 @@ int main(void)
         return -1;
 
     HWND hwnd = CreateWindowEx(WS_EX_LEFT,                  // dwExStyle
-        wnd_class.lpszClassName,    // lpClassName
-        viewerName,                 // lpWindowName
-        WS_OVERLAPPEDWINDOW,        // dwStyle
-        CW_USEDEFAULT,              // X
-        CW_USEDEFAULT,              // Y
-        viewerWidthPixel,           // nWidth
-        viewerHeightPixel,          // nHeight
-        0,                          // hWndParent
-        0,                          // hMenu
-        GetModuleHandle(NULL),      // hInstance
-        0);                         // lpParam
+                                wnd_class.lpszClassName,    // lpClassName
+                                viewerName,                 // lpWindowName
+                                WS_OVERLAPPEDWINDOW,        // dwStyle
+                                CW_USEDEFAULT,              // X
+                                CW_USEDEFAULT,              // Y
+                                viewerWidthPixel,           // nWidth
+                                viewerHeightPixel,          // nHeight
+                                0,                          // hWndParent
+                                0,                          // hMenu
+                                GetModuleHandle(NULL),      // hInstance
+                                0);                         // lpParam
 
     if (!hwnd)
         return -1;
