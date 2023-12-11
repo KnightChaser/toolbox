@@ -9,7 +9,6 @@ void replaceString(const char* string,
 
     const char* matchFound = string;
     size_t replaceFromLength = strlen(replaceFrom);
-    size_t replaceToLength = strlen(replaceTo);
 
     while ((matchFound = strstr(matchFound, replaceFrom)) != NULL) {
         strncat(replaced, string, matchFound - string);                // Copy the part of the string before the match
