@@ -1,12 +1,13 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <string.h>
 
-void replaceString(const char *string,
-                   const char *replaceFrom,
-                   const char *replaceTo,
-                   char *replaced) {
+void replaceString(const char* string,
+    const char* replaceFrom,
+    const char* replaceTo,
+    char* replaced) {
 
-    const char *matchFound = string;
+    const char* matchFound = string;
     size_t replaceFromLength = strlen(replaceFrom);
     size_t replaceToLength = strlen(replaceTo);
 
@@ -21,13 +22,17 @@ void replaceString(const char *string,
 }
 
 int main(void) {
-    const char string[1024] = "damn it, Clang doesn't support that very damnin' string replacemethod like C++!!!";
-    const char replaceFrom[] = "damn";
-    const char replaceTo[] = "F*ck";
+    char string[1024];
+    char replaceFrom[100];
+    char replaceTo[100];
     char replaced[1024] = "";
 
+    printf("Enter the string: ");               scanf("%1023[^\n]", string);     // Read up to 1023 characters until a newline is encountered
+    printf("Enter the word to replace: ");      scanf("%99s", replaceFrom);      // Read up to 99 characters or until whitespace is encountered
+    printf("Enter the replacement word: ");     scanf("%99s", replaceTo);        // Read up to 99 characters or until whitespace is encountered
+
     replaceString(string, replaceFrom, replaceTo, replaced);
-    printf("%s\n", replaced);
+    printf("Replaced string: %s\n", replaced);
 
     return 0;
 }
